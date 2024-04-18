@@ -11,20 +11,20 @@ class TestBooksCollector:
         book_collector = BooksCollector()
         book_collector.add_new_book('Зомби')
         book_collector.add_new_book('Ирония')
-        assert len(book_collector.books_genre) == 2
+        assert len(book_collector.get_books_genre()) == 2
 
     @pytest.mark.parametrize('name', ['Космос', 'Крик', 'Поиск', 'Мульти', 'Смех'])
     def test_add_new_book_name_book_not_genre(self, name):
         book_collector = BooksCollector()
         book_collector.add_new_book(name)
-        assert book_collector.books_genre == {name: ''}
+        assert book_collector.get_books_genre() == {name: ''}
 
     @pytest.mark.parametrize('name, genre', [['Космос', 'Фантастика'], ['Крик', 'Ужасы'], ['Поиск', 'Детективы'], ['Мульти', 'Мультфильмы'], ['Смех', 'Комедии']])
     def test_set_book_genre_name_and_genre_book_add_genre(self, name, genre):
         book_collector = BooksCollector()
         book_collector.add_new_book(name)
         book_collector.set_book_genre(name, genre)
-        assert book_collector.books_genre == {name: genre}
+        assert book_collector.get_books_genre() == {name: genre}
 
     @pytest.mark.parametrize('name, genre', [['Космос', 'Фантастика'], ['Крик', 'Ужасы'], ['Поиск', 'Детективы'], ['Мульти', 'Мультфильмы'], ['Смех', 'Комедии']])
     def test_get_book_genre_name_and_genre_book_get_genre(self, name, genre):
@@ -66,7 +66,7 @@ class TestBooksCollector:
         book_collector = BooksCollector()
         book_collector.add_new_book(name)
         book_collector.add_book_in_favorites(name)
-        assert book_collector.favorites == [name]
+        assert book_collector.get_list_of_favorites_books() == [name]
 
     @pytest.mark.parametrize('name', ['Космос', 'Крик', 'Поиск', 'Мульти', 'Смех'])
     def test_delete_book_in_favorites_name_book_delete_favorites(self, name):
@@ -74,11 +74,11 @@ class TestBooksCollector:
         book_collector.add_new_book(name)
         book_collector.add_book_in_favorites(name)
         book_collector.delete_book_from_favorites(name)
-        assert book_collector.favorites == []
+        assert book_collector.get_list_of_favorites_books() == []
 
     @pytest.mark.parametrize('name', ['Космос', 'Крик', 'Поиск', 'Мульти', 'Смех'])
     def test_get_list_of_favorites_books_name_book_get_list(self, name):
         book_collector = BooksCollector()
         book_collector.add_new_book(name)
         book_collector.add_book_in_favorites(name)
-        assert book_collector.favorites == [name]
+        assert book_collector.get_list_of_favorites_books() == [name]
